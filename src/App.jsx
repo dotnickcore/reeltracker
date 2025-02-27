@@ -1,34 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+/*
+  React components are reusable, self-contained building blocks that define the UI by managing their own state and rendering based on props. 
+  They can be functional or class-based, with functional components being more common due to their simplicity and support for hooks.
+*/
 
+/*
+  Props (short for "properties") are read-only inputs passed to React components to customize their behavior and appearance. 
+  They allow data to flow from parent to child components, enabling reusability and dynamic rendering.
+  Parent -> child
+  Arguments you pass into a function
+*/
+
+const Card = ({ title, rating, isCool }) => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h2>{title}</h2>
+      {rating && <p>Rating: {rating}</p>}
+      {isCool && <p>This is cool! 😎</p>}
+    </div>
+  );
+};
+
+const App = () => {
+  return (
+    <div>
+      <h2>Functional Arrow Component</h2>
+
+      <Card title="Star Wars" rating={5} isCool={true} />
+      <Card title="Avatar" rating ={1} isCool={false}/>
+      <Card title="The Lion King" rating={5} isCool={true}/>
+    </div>
   )
 }
 
