@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css'
 
 /*
@@ -12,24 +13,48 @@ import './App.css'
   Arguments you pass into a function
 */
 
-const Card = ({ title, rating, isCool }) => {
+/*
+  Inline stylings have a preference over CSS stylings
+*/
+
+/*
+  State is a built-in feature in React that allows components to store and manage dynamic data that can change over time. 
+  When state updates, React re-renders the component to reflect the new data in the UI.
+*/
+
+/*
+  Hooks are functions that let functional components manage state and side effects without using classes. 
+  They include built-in hooks like useState for state management and useEffect for handling side effects.
+*/
+
+/*
+  useState is a React hook that allows functional components to create and manage local state, returning a state variable and a function to update it. 
+  useEffect is a hook used for handling side effects like data fetching, subscriptions, or DOM updates, running after renders based on specified dependencies.
+*/
+
+/*
+  States and props determine if something has changed
+*/
+
+// https://youtu.be/dCLhUialKPQ?feature=shared&t=1706
+
+const Card = ({ title }) => {
   return (
-    <div>
+    <div className="card" >
       <h2>{title}</h2>
-      {rating && <p>Rating: {rating}</p>}
-      {isCool && <p>This is cool! 😎</p>}
     </div>
   );
 };
 
 const App = () => {
-  return (
-    <div>
-      <h2>Functional Arrow Component</h2>
+  // variable name, value
+  const [hasLiked, setHasLiked] = useState();
 
-      <Card title="Star Wars" rating={5} isCool={true} />
-      <Card title="Avatar" rating ={1} isCool={false}/>
-      <Card title="The Lion King" rating={5} isCool={true}/>
+  return (
+    <div className="card-container">
+      <Card title="Star Wars" />
+      <Card title="Avatar"/>
+      <Card title="The Lion King"/>
     </div>
   )
 }
