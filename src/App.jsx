@@ -70,6 +70,21 @@ import MovieCard from './components/MovieCard'
   They can use built-in hooks like useState or useEffect to manage state and side effects, and are typically named with a "use" prefix to follow React conventions.
 */
 
+/*
+  Breakdown:
+<ul>: This is an unordered list HTML element, which will contain the list of movie cards.
+{movieList.map((movie) => (...)}:
+The map function is being called on the movieList array. It loops through each movie in the list.
+For each movie, it creates a MovieCard component.
+<MovieCard key={movie.id} movie={movie} />:
+key={movie.id}: This is a React-specific prop used to give each child element a unique identifier. It's important for performance reasons when rendering lists.
+movie={movie}: This is passing the entire movie object as a prop to the MovieCard component. Inside MovieCard, you can access all the properties of the movie object (like title, poster, release date, etc.).
+What this does:
+It dynamically creates a list of <MovieCard /> components based on the movieList array.
+Each movie card will display data for an individual movie from the list.
+
+*/
+
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -144,7 +159,7 @@ const App = () => {
             ) : (
               <ul>
                 {movieList.map((movie) => (
-                  <MovieCard key={movie.id}/>
+                  <MovieCard key={movie.id} movie={movie}/>
                 ))}
               </ul>
             )};
