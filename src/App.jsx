@@ -1,6 +1,8 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import Search from './components/Search'
+import Spinner from './components/Spinner'
+import MovieCard from './components/MovieCard'
 
 /*
   React components are reusable, self-contained building blocks that define the UI by managing their own state and rendering based on props. 
@@ -56,6 +58,16 @@ import Search from './components/Search'
   2. The searchTerm state is updated in real-time with each character typed.
   3. The setSearchTerm function (likely passed as a prop) handles this update by modifying the value of searchTerm.
   4. Once the search term is updated, the search query could trigger an API call (for example, to an API like TMDB) to fetch movie results based on the current searchTerm.
+*/
+
+/*
+  useActionState: A custom hook that tracks the state of an action (such as loading, success, or error) within a component, helping manage UI feedback for asynchronous processes.
+  useOptimistic: A custom hook used to handle optimistic UI updates by immediately applying expected changes to the UI before the server response, then reverting if the action fails.
+  useFormStatus: A custom hook that provides the current state of a form, including whether it is being submitted, successfully submitted, or has errors, allowing for better form state management.
+  useTransition is a React hook that allows you to manage and optimize the rendering of updates by marking certain state transitions as non-urgent. It helps improve performance by keeping the app responsive during slow updates, allowing the UI to remain interactive while less critical updates are being processed.
+
+  Custom hooks in React are functions that allow you to extract and reuse logic across multiple components, enabling cleaner and more maintainable code. 
+  They can use built-in hooks like useState or useEffect to manage state and side effects, and are typically named with a "use" prefix to follow React conventions.
 */
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
@@ -123,16 +135,16 @@ const App = () => {
           </header>
 
           <section className="all-movies">
-            <h2>All Movies</h2>
+            <h2 className="mt-[40px]">All Movies</h2>
 
             {isLoading ? (
-              <p className="text-white">Loading ... </p>
+              <Spinner />
             ) : errorMessage ? (
               <p className="text-red-500">{errorMessage}</p>
             ) : (
               <ul>
                 {movieList.map((movie) => (
-                  <p key={movie.id} className="text-white">{movie.title}</p>
+                  <MovieCard key={movie.id}/>
                 ))}
               </ul>
             )};
