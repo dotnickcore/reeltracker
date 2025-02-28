@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import './App.css'
 
 /*
@@ -42,37 +41,11 @@ import './App.css'
 
 // https://youtu.be/dCLhUialKPQ?feature=shared&t=1706
 
-const Card = ({ title }) => {
-  // (prevState) => prevState + 1
-  const [count, setCount] = useState(0);
-
-  // const [state variable, function that changes the state] = useState(defaultState)
-  const [hasLiked, setHasLiked] = useState(false);
-  
-  useEffect(() => {
-    console.log(`${title} has been liked: ${hasLiked}`)
-  }, [hasLiked]);
-  
-  // For the code: count ? count : null, this means that the count will be rendered if it is greater than zero otherwise it will be null, count || null is the same
-
-  return (
-    <div className="card" onClick={() => setCount(count + 1)}>
-      <h2>{title} <br/> {count || null}</h2>
-
-      <button onClick={() => setHasLiked(!hasLiked)}>
-        {hasLiked ? "❤️" : '🤍'}
-      </button>
-    </div>
-  );
-};
-
 const App = () => {
   return (
-    <div className="card-container">
-      <Card title="Star Wars" />
-      <Card title="Avatar"/>
-      <Card title="The Lion King"/>
-    </div>
+    <h1 className="text-3xl font-bold underline text-red-500">
+      Hello World!
+    </h1>
   )
 }
 
