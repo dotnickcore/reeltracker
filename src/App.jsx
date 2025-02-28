@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 /*
@@ -30,26 +30,46 @@ import './App.css'
 /*
   useState is a React hook that allows functional components to create and manage local state, returning a state variable and a function to update it. 
   useEffect is a hook used for handling side effects like data fetching, subscriptions, or DOM updates, running after renders based on specified dependencies.
+  useContext is a React hook for sharing data across components. Thus, access and share context values without prop drilling, making global state management easier.
+  useCallback is a React hook for optimizing callback functions. So, it memoizes a callback function, preventing unnecessary re-creations on re-renders, which helps optimize performance in components.
+
+  It uses Array Destructuring when handling both the current state and updating it with a function
 */
 
 /*
   States and props determine if something has changed
 */
 
+/*
+
+*/
+
 // https://youtu.be/dCLhUialKPQ?feature=shared&t=1706
 
 const Card = ({ title }) => {
+  // (prevState) => prevState + 1
+  const [count, setCount] = useState(0);
+
+  // const [state variable, function that changes the state] = useState(defaultState)
+  const [hasLiked, setHasLiked] = useState(false);
+  
+  useEffect(() => {
+    console.log(`${title} has been liked: ${hasLiked}`)
+  });
+
+  
   return (
-    <div className="card" >
+    <div className="card" onClick={() => setCount({count} + 1)}>
       <h2>{title}</h2>
+
+      <button onClick={() => setHasLiked(!hasLiked)}>
+        {hasLiked ? "❤️" : '🤍'}
+      </button>
     </div>
   );
 };
 
 const App = () => {
-  // variable name, value
-  const [hasLiked, setHasLiked] = useState();
-
   return (
     <div className="card-container">
       <Card title="Star Wars" />
