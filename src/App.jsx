@@ -1,4 +1,6 @@
 import './App.css'
+import { useState } from 'react'
+import Search from './components/Search'
 
 /*
   React components are reusable, self-contained building blocks that define the UI by managing their own state and rendering based on props. 
@@ -42,11 +44,18 @@ import './App.css'
 // https://youtu.be/dCLhUialKPQ?feature=shared&t=1706
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState('I AM IRON MAN');
+
   return (
     <main>
       <div className="pattern">
         <div className="wrapper">
-          <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy Without the Hassle</h1>
+          <header>
+            <img src="./hero.png" alt="Hero Banner"/>
+            <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy Without the Hassle</h1>
+          </header>
+
+          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
         </div>
       </div>
     </main>
