@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Search from './components/Search'
 import Spinner from './components/Spinner'
 import MovieCard from './components/MovieCard'
+import { useDebounce } from 'react-use'
 
 /*
   React components are reusable, self-contained building blocks that define the UI by managing their own state and rendering based on props. 
@@ -85,6 +86,11 @@ Each movie card will display data for an individual movie from the list.
 
 */
 
+/*
+  Debouncing is a technique used to limit the number of times a function is called in quick succession, by delaying its execution until a certain amount of time has passed without the function being called again. 
+  In the context of searching, debouncing ensures that a search query is only triggered after the user stops typing for a specified period, preventing excessive API calls or updates and improving performance, especially for real-time searches.
+*/
+
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -103,13 +109,18 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
 
-  const fetchMovies = async () => {
+  // debounces search to prevent it from making too many API calls
+  useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm])
+
+  const fetchMovies = async (query = '') => {
     setIsLoading(true);
     setErrorMessage('');
 
     try {
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      // brings back either queried movie or top 20
+      const endpoint = query ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}` : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
       const response = await fetch(endpoint, API_OPTIONS);
 
@@ -134,9 +145,11 @@ const App = () => {
     }
   }
 
+  // if no search is done, top 20 most popular
+  // else brings up movie from search
   useEffect(() => {
-    fetchMovies();
-  }, []);
+    fetchMovies(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
 
   return (
     <main>
