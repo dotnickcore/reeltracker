@@ -40,10 +40,6 @@ import './App.css'
   States and props determine if something has changed
 */
 
-/*
-
-*/
-
 // https://youtu.be/dCLhUialKPQ?feature=shared&t=1706
 
 const Card = ({ title }) => {
@@ -55,12 +51,13 @@ const Card = ({ title }) => {
   
   useEffect(() => {
     console.log(`${title} has been liked: ${hasLiked}`)
-  });
-
+  }, [hasLiked]);
   
+  // For the code: count ? count : null, this means that the count will be rendered if it is greater than zero otherwise it will be null, count || null is the same
+
   return (
-    <div className="card" onClick={() => setCount({count} + 1)}>
-      <h2>{title}</h2>
+    <div className="card" onClick={() => setCount(count + 1)}>
+      <h2>{title} <br/> {count || null}</h2>
 
       <button onClick={() => setHasLiked(!hasLiked)}>
         {hasLiked ? "❤️" : '🤍'}
